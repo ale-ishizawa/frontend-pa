@@ -26,7 +26,7 @@ const TABLE_HEAD = [
   { id: 'actions', label: 'Ações', alignRight: true }
 ];
 
-export default function SectorList({ sectors = [], onEdit, onDelete, onDeleteSelected }) {
+export default function PositionList({ positions = [], onEdit, onDelete, onDeleteSelected }) {
   const [page, setPage] = useState(0);
   const [order, setOrder] = useState('asc');
   const [selected, setSelected] = useState([]);
@@ -56,10 +56,10 @@ export default function SectorList({ sectors = [], onEdit, onDelete, onDeleteSel
 
   function handleSelectAllClick(event) {
     if (event.target.checked) {
-      if (isSectorNotFound) {
+      if (isPositionNotFound) {
         return;
       }
-      const newSelecteds = sectors.map((n) => n.id);
+      const newSelecteds = positions.map((n) => n.id);
       setSelected(newSelecteds);
       return;
     }
@@ -88,11 +88,11 @@ export default function SectorList({ sectors = [], onEdit, onDelete, onDeleteSel
     setFilterName(event.target.value);
   };
 
-  const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - sectors.length) : 0;
+  const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - positions.length) : 0;
 
-  const filteredSectors = applySortFilter(sectors, getComparator(order, orderBy), filterName);
+  const filteredPositions = applySortFilter(positions, getComparator(order, orderBy), filterName);
 
-  const isSectorNotFound = filteredSectors.length === 0;
+  const isPositionNotFound = filteredPositions.length === 0;
 
   return (
     <Grid item xs={12} md={6} lg={8}>
@@ -115,13 +115,13 @@ export default function SectorList({ sectors = [], onEdit, onDelete, onDeleteSel
                 order={order}
                 orderBy={orderBy}
                 headLabel={TABLE_HEAD}
-                rowCount={sectors.length}
+                rowCount={positions.length}
                 numSelected={selected.length}
                 onRequestSort={handleRequestSort}
                 onSelectAllClick={handleSelectAllClick}
               />
               <TableBody>
-                {filteredSectors
+                {filteredPositions
                   .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                   .map((row) => {
                     const { id, name } = row;
@@ -162,7 +162,7 @@ export default function SectorList({ sectors = [], onEdit, onDelete, onDeleteSel
                   </TableRow>
                 )}
               </TableBody>
-              {isSectorNotFound && (
+              {isPositionNotFound && (
                 <TableBody>
                   <TableRow>
                     <TableCell align="center" colSpan={6} sx={{ py: 3 }}>
@@ -179,7 +179,7 @@ export default function SectorList({ sectors = [], onEdit, onDelete, onDeleteSel
           rowsPerPageOptions={[5, 10, 25]}
           labelRowsPerPage="Quantidade por página"
           component="div"
-          count={sectors.length}
+          count={positions.length}
           rowsPerPage={rowsPerPage}
           page={page}
           onPageChange={handleChangePage}
@@ -190,8 +190,8 @@ export default function SectorList({ sectors = [], onEdit, onDelete, onDeleteSel
   );
 }
 
-SectorList.propTypes = {
-  sectors: propTypes.array,
+PositionList.propTypes = {
+  positions: propTypes.array,
   onEdit: propTypes.func,
   onDelete: propTypes.func,
   onDeleteSelected: propTypes.func

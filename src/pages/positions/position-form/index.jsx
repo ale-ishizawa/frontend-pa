@@ -6,13 +6,13 @@ import { LoadingButton } from '@material-ui/lab';
 import * as Yup from 'yup';
 import { useFormik, Form, FormikProvider } from 'formik';
 
-export default function SectorForm({ save, isEditing, sector }) {
+export default function PositionForm({ save, isEditing, position }) {
   // Formik validation
-  const SectorSchema = Yup.object().shape({
+  const PositionSchema = Yup.object().shape({
     name: Yup.string()
-      .min(2, 'Nome do setor é muito pequeno!')
-      .max(80, 'Nome do setor é muito grande!')
-      .required('Setor é obrigatório')
+      .min(2, 'Nome do cargo é muito pequeno!')
+      .max(100, 'Nome do cargo é muito grande!')
+      .required('Cargo é obrigatório')
   });
 
   const formik = useFormik({
@@ -20,25 +20,25 @@ export default function SectorForm({ save, isEditing, sector }) {
       name: '',
       id: null
     },
-    validationSchema: SectorSchema,
-    onSubmit: saveSector
+    validationSchema: PositionSchema,
+    onSubmit: savePosition
   });
 
   const { errors, touched, handleSubmit, isSubmitting, getFieldProps, values } = formik;
 
-  function saveSector() {
+  function savePosition() {
     save(formik.values);
     formik.resetForm();
   }
 
   useEffect(() => {
-    if (isEditing && sector && !values.id) {
+    if (isEditing && position && !values.id) {
       formik.setValues({
-        id: sector.id,
-        name: sector.name
+        id: position.id,
+        name: position.name
       });
     }
-  }, [isEditing, sector]);
+  }, [isEditing, position]);
 
   return (
     <Grid item xs={12} md={6} lg={4}>
@@ -54,7 +54,7 @@ export default function SectorForm({ save, isEditing, sector }) {
               <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2}>
                 <TextField
                   fullWidth
-                  label="Nome do setor"
+                  label="Nome do cargo"
                   {...getFieldProps('name')}
                   error={Boolean(touched.name && errors.name)}
                   helperText={touched.name && errors.name}
@@ -78,8 +78,8 @@ export default function SectorForm({ save, isEditing, sector }) {
   );
 }
 
-SectorForm.propTypes = {
+PositionForm.propTypes = {
   save: propTypes.func,
-  sector: propTypes.object,
+  position: propTypes.object,
   isEditing: propTypes.bool
 };
