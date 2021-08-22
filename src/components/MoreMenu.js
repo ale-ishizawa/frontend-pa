@@ -14,6 +14,16 @@ export default function MoreMenu({ onDelete, onEdit }) {
   const ref = useRef(null);
   const [isOpen, setIsOpen] = useState(false);
 
+  function handleDelete() {
+    onDelete();
+    setIsOpen(false);
+  }
+
+  function handleEdit() {
+    onEdit();
+    setIsOpen(false);
+  }
+
   return (
     <>
       <IconButton ref={ref} onClick={() => setIsOpen(true)}>
@@ -30,14 +40,14 @@ export default function MoreMenu({ onDelete, onEdit }) {
         anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
         transformOrigin={{ vertical: 'top', horizontal: 'right' }}
       >
-        <MenuItem sx={{ color: 'text.secondary' }}>
+        <MenuItem sx={{ color: 'text.secondary' }} on>
           <ListItemIcon>
             <Icon icon={trash2Outline} width={24} height={24} />
           </ListItemIcon>
           <ListItemText
             primary="Excluir"
             primaryTypographyProps={{ variant: 'body2' }}
-            onClick={onDelete}
+            onClick={handleDelete}
           />
         </MenuItem>
 
@@ -46,9 +56,9 @@ export default function MoreMenu({ onDelete, onEdit }) {
             <Icon icon={editFill} width={24} height={24} />
           </ListItemIcon>
           <ListItemText
-            primary="Deletar"
+            primary="Editar"
             primaryTypographyProps={{ variant: 'body2' }}
-            onClick={onEdit}
+            onClick={handleEdit}
           />
         </MenuItem>
       </Menu>
