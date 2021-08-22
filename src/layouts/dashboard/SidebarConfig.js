@@ -28,6 +28,11 @@ const sidebarConfig = [
     icon: getIcon(fileTextFill)
   },
   {
+    title: 'Categorias',
+    path: '/dashboard/categories',
+    icon: getIcon(fileTextFill)
+  },
+  {
     title: 'user',
     path: '/dashboard/user',
     icon: getIcon(peopleFill)

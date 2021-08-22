@@ -12,6 +12,7 @@ import User from './pages/User';
 import NotFound from './pages/Page404';
 import Sectors from './pages/sectors';
 import Positions from './pages/positions';
+import Categories from './pages/categories';
 
 // ----------------------------------------------------------------------
 
@@ -25,6 +26,7 @@ export default function Router() {
         { path: 'app', element: <DashboardApp /> },
         { path: 'sectors', element: <Sectors /> },
         { path: 'positions', element: <Positions /> },
+        { path: 'categories', element: <Categories /> },
         { path: 'user', element: <User /> },
         { path: 'products', element: <Products /> },
         { path: 'blog', element: <Blog /> }

@@ -89,7 +89,7 @@ export default function Sectors() {
       getSectors();
       NotificationManager.success('Setor excluído com sucesso.', 'Sucesso!', 6000);
     } catch (error) {
-      NotificationManager.error('Erro', 'Erro', 6000);
+      NotificationManager.error(error.message, 'Erro', 6000);
     }
   }
 
@@ -109,7 +109,7 @@ export default function Sectors() {
       getSectors();
       NotificationManager.success('Setores excluídos com sucesso!.', 'Sucesso', 6000);
     } catch (error) {
-      NotificationManager.error('Erro ao excluir vários setores.', 'Erro', 6000);
+      NotificationManager.error(error.message, 'Erro', 6000);
     }
   }
 

@@ -6,22 +6,22 @@ import { Stack, Container, Typography, Grid } from '@material-ui/core';
 import { NotificationManager } from 'react-notifications';
 
 import api from '../../services/api';
-import PositionForm from './position-form';
-import PositionList from './position-list';
+import CategoryForm from './category-form';
+import CategoryList from './category-list';
 
-export default function Sectors() {
-  const [positions, setPositions] = useState([]);
+export default function Categories() {
+  const [categories, setCategories] = useState([]);
   const [isEditing, setIsEditing] = useState(false);
-  const [position, setPosition] = useState(null);
+  const [category, setCategory] = useState(null);
 
   useEffect(() => {
-    getPositions();
+    getCategories();
   }, []);
 
-  async function getPositions() {
+  async function getCategories() {
     try {
-      const response = await api.get('api/positions');
-      setPositions(response.data);
+      const response = await api.get('api/categories');
+      setCategories(response.data);
     } catch (error) {
       NotificationManager.error(error.message, 'Erro', 6000);
     }
@@ -30,8 +30,8 @@ export default function Sectors() {
   async function handleSave(values) {
     try {
       if (isEditing) {
-        const position = await api.put(
-          `api/positions/${values.id}`,
+        const category = await api.put(
+          `api/categories/${values.id}`,
           JSON.stringify({
             name: values.name
           }),
@@ -43,8 +43,8 @@ export default function Sectors() {
         );
         setIsEditing(false);
       } else {
-        const position = await api.post(
-          'api/positions',
+        const category = await api.post(
+          'api/categories',
           JSON.stringify({
             name: values.name
           }),
@@ -55,10 +55,10 @@ export default function Sectors() {
           }
         );
       }
-      getPositions();
-      setPosition(null);
+      getCategories();
+      setCategory(null);
       NotificationManager.success(
-        `Cargo ${isEditing ? 'salvo ' : 'cadastrado '} com sucesso.`,
+        `Categoria ${isEditing ? 'salva ' : 'cadastrada '} com sucesso.`,
         'Sucesso!',
         6000
       );
@@ -67,16 +67,16 @@ export default function Sectors() {
     }
   }
 
-  function handleEdit(idPosition) {
-    const position = positions.find((s) => s.id === idPosition);
-    setPosition(position);
+  function handleEdit(idCategory) {
+    const category = categories.find((s) => s.id === idCategory);
+    setCategory(category);
     setIsEditing(true);
   }
 
-  async function handleDelete(idPosition) {
+  async function handleDelete(idCategory) {
     try {
       const deleted = await api.put(
-        `api/positions/${idPosition}`,
+        `api/categories/${idCategory}`,
         JSON.stringify({
           status: false
         }),
@@ -86,8 +86,8 @@ export default function Sectors() {
           }
         }
       );
-      getPositions();
-      NotificationManager.success('Cargo excluído com sucesso.', 'Sucesso!', 6000);
+      getCategories();
+      NotificationManager.success('Categoria excluída com sucesso.', 'Sucesso!', 6000);
     } catch (error) {
       NotificationManager.error(error.message, 'Erro', 6000);
     }
@@ -96,7 +96,7 @@ export default function Sectors() {
   async function handleDeleteSelected(selected) {
     try {
       await api.put(
-        'api/positions/many',
+        'api/categories/many',
         JSON.stringify({
           ids: [...selected]
         }),
@@ -106,8 +106,8 @@ export default function Sectors() {
           }
         }
       );
-      getPositions();
-      NotificationManager.success('Cargos excluídos com sucesso.', 'Sucesso!', 6000);
+      getCategories();
+      NotificationManager.success('Categorias excluídas com sucesso.', 'Sucesso!', 6000);
     } catch (error) {
       NotificationManager.error(error.message, 'Erro', 6000);
     }
@@ -117,13 +117,13 @@ export default function Sectors() {
     <Container>
       <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>
         <Typography variant="h4" gutterBottom>
-          Cargos
+          Categorias
         </Typography>
       </Stack>
       <Grid container spacing={3}>
-        <PositionForm save={handleSave} isEditing={isEditing} position={position} />
-        <PositionList
-          positions={positions}
+        <CategoryForm save={handleSave} isEditing={isEditing} category={category} />
+        <CategoryList
+          categories={categories}
           onDelete={handleDelete}
           onEdit={handleEdit}
           onDeleteSelected={handleDeleteSelected}
