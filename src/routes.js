@@ -13,6 +13,7 @@ import NotFound from './pages/Page404';
 import Sectors from './pages/sectors';
 import Positions from './pages/positions';
 import Categories from './pages/categories';
+import EmployeeForm from './pages/employees/employee-form';
 
 // ----------------------------------------------------------------------
 
@@ -24,6 +25,7 @@ export default function Router() {
       children: [
         { path: '/', element: <Navigate to="/dashboard/app" replace /> },
         { path: 'app', element: <DashboardApp /> },
+        { path: 'employees/create', element: <EmployeeForm /> },
         { path: 'sectors', element: <Sectors /> },
         { path: 'positions', element: <Positions /> },
         { path: 'categories', element: <Categories /> },

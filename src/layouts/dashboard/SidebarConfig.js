@@ -18,6 +18,20 @@ const sidebarConfig = [
     icon: getIcon(pieChart2Fill)
   },
   {
+    title: 'Funcionários',
+    icon: getIcon(peopleFill),
+    children: [
+      {
+        title: 'Cadastrar',
+        path: '/dashboard/employees/create'
+      },
+      {
+        title: 'Lista',
+        path: '/dashboard/employees/list'
+      }
+    ]
+  },
+  {
     title: 'Setores',
     path: '/dashboard/sectors',
     icon: getIcon(fileTextFill)
