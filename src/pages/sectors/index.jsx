@@ -27,7 +27,7 @@ export default function Sectors() {
     }
   }
 
-  async function handleSave(values) {
+  const handleSave = async (values) => {
     try {
       if (isEditing) {
         const sector = await api.put(
@@ -65,15 +65,15 @@ export default function Sectors() {
     } catch (error) {
       NotificationManager.error(error.message, 'Erro', 6000);
     }
-  }
+  };
 
-  function handleEdit(idSector) {
+  const handleEdit = (idSector) => {
     const sector = sectors.find((s) => s.id === idSector);
     setSector(sector);
     setIsEditing(true);
-  }
+  };
 
-  async function handleDelete(idSector) {
+  const handleDelete = async (idSector) => {
     try {
       const deleted = await api.put(
         `api/sectors/${idSector}`,
@@ -91,9 +91,9 @@ export default function Sectors() {
     } catch (error) {
       NotificationManager.error(error.message, 'Erro', 6000);
     }
-  }
+  };
 
-  async function handleDeleteSelected(selected) {
+  const handleDeleteSelected = async (selected) => {
     try {
       await api.put(
         'api/sectors/many',
@@ -111,7 +111,7 @@ export default function Sectors() {
     } catch (error) {
       NotificationManager.error(error.message, 'Erro', 6000);
     }
-  }
+  };
 
   return (
     <Container>

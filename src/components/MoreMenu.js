@@ -14,15 +14,15 @@ export default function MoreMenu({ onDelete, onEdit }) {
   const ref = useRef(null);
   const [isOpen, setIsOpen] = useState(false);
 
-  function handleDelete() {
+  const handleDelete = async () => {
     onDelete();
     setIsOpen(false);
-  }
+  };
 
-  function handleEdit() {
+  const handleEdit = async () => {
     onEdit();
     setIsOpen(false);
-  }
+  };
 
   return (
     <>

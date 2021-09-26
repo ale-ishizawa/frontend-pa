@@ -27,7 +27,7 @@ export default function Categories() {
     }
   }
 
-  async function handleSave(values) {
+  const handleSave = async (values) => {
     try {
       if (isEditing) {
         const category = await api.put(
@@ -65,15 +65,15 @@ export default function Categories() {
     } catch (error) {
       NotificationManager.error(error.message, 'Erro', 6000);
     }
-  }
+  };
 
-  function handleEdit(idCategory) {
+  const handleEdit = (idCategory) => {
     const category = categories.find((s) => s.id === idCategory);
     setCategory(category);
     setIsEditing(true);
-  }
+  };
 
-  async function handleDelete(idCategory) {
+  const handleDelete = async (idCategory) => {
     try {
       const deleted = await api.put(
         `api/categories/${idCategory}`,
@@ -91,9 +91,9 @@ export default function Categories() {
     } catch (error) {
       NotificationManager.error(error.message, 'Erro', 6000);
     }
-  }
+  };
 
-  async function handleDeleteSelected(selected) {
+  const handleDeleteSelected = async (selected) => {
     try {
       await api.put(
         'api/categories/many',
@@ -111,7 +111,7 @@ export default function Categories() {
     } catch (error) {
       NotificationManager.error(error.message, 'Erro', 6000);
     }
-  }
+  };
 
   return (
     <Container>

@@ -40,10 +40,10 @@ export default function PositionList({ positions = [], onEdit, onDelete, onDelet
     setOrderBy(property);
   };
 
-  function handleOnDeleteSelected() {
+  const handleOnDeleteSelected = () => {
     onDeleteSelected(selected);
     setSelected([]);
-  }
+  };
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -54,7 +54,7 @@ export default function PositionList({ positions = [], onEdit, onDelete, onDelet
     setPage(0);
   };
 
-  function handleSelectAllClick(event) {
+  const handleSelectAllClick = (event) => {
     if (event.target.checked) {
       if (isPositionNotFound) {
         return;
@@ -64,7 +64,7 @@ export default function PositionList({ positions = [], onEdit, onDelete, onDelet
       return;
     }
     setSelected([]);
-  }
+  };
 
   const handleClick = (event, id) => {
     const selectedIndex = selected.indexOf(id);

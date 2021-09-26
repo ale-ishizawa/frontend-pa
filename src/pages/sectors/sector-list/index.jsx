@@ -40,10 +40,10 @@ export default function SectorList({ sectors = [], onEdit, onDelete, onDeleteSel
     setOrderBy(property);
   };
 
-  function handleOnDeleteSelected() {
+  const handleOnDeleteSelected = () => {
     onDeleteSelected(selected);
     setSelected([]);
-  }
+  };
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -54,7 +54,7 @@ export default function SectorList({ sectors = [], onEdit, onDelete, onDeleteSel
     setPage(0);
   };
 
-  function handleSelectAllClick(event) {
+  const handleSelectAllClick = (event) => {
     if (event.target.checked) {
       if (isSectorNotFound) {
         return;
@@ -64,7 +64,7 @@ export default function SectorList({ sectors = [], onEdit, onDelete, onDeleteSel
       return;
     }
     setSelected([]);
-  }
+  };
 
   const handleClick = (event, id) => {
     const selectedIndex = selected.indexOf(id);
