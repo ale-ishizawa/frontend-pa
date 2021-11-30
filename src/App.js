@@ -12,15 +12,18 @@ import ScrollToTop from './components/ScrollToTop';
 
 // Redux
 import store from './store';
+import { isAuthenticated } from './services/auth';
 
 // ----------------------------------------------------------------------
 
 export default function App() {
+  const isLoggedIn = isAuthenticated();
+
   return (
     <Provider store={store}>
       <ThemeConfig>
         <ScrollToTop />
-        <Router />
+        <Router isLoggedIn={isLoggedIn} />
         <NotificationContainer />
       </ThemeConfig>
     </Provider>

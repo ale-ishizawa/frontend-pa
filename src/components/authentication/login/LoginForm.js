@@ -1,6 +1,6 @@
 import * as Yup from 'yup';
 import { useState } from 'react';
-import { Link as RouterLink, useNavigate } from 'react-router-dom';
+import { Link as RouterLink } from 'react-router-dom';
 import { useFormik, Form, FormikProvider } from 'formik';
 import { Icon } from '@iconify/react';
 import eyeFill from '@iconify/icons-eva/eye-fill';
@@ -16,11 +16,14 @@ import {
   FormControlLabel
 } from '@material-ui/core';
 import { LoadingButton } from '@material-ui/lab';
+import { NotificationManager } from 'react-notifications';
+
+import { api } from '../../../services/api';
+import { login } from '../../../services/auth';
 
 // ----------------------------------------------------------------------
 
 export default function LoginForm() {
-  const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
 
   const LoginSchema = Yup.object().shape({
@@ -32,12 +35,10 @@ export default function LoginForm() {
     initialValues: {
       email: '',
       password: '',
-      remember: true
+      remember: false
     },
     validationSchema: LoginSchema,
-    onSubmit: () => {
-      navigate('/dashboard', { replace: true });
-    }
+    onSubmit: () => authenticate()
   });
 
   const { errors, touched, values, isSubmitting, handleSubmit, getFieldProps } = formik;
@@ -45,6 +46,38 @@ export default function LoginForm() {
   const handleShowPassword = () => {
     setShowPassword((show) => !show);
   };
+
+  const saveCredentials = () => {
+    localStorage.setItem('_email', values.email);
+    localStorage.setItem('_password', values.password);
+    localStorage.setItem('_remember', values.remember);
+  };
+
+  async function authenticate() {
+    try {
+      const response = await api.post(
+        'api/login',
+        JSON.stringify({
+          ...values
+        }),
+        {
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        }
+      );
+
+      if (response.data.token) {
+        if (values.remember) {
+          saveCredentials();
+        }
+        login(response.data);
+        window.location.reload();
+      }
+    } catch (error) {
+      NotificationManager.error(error.response.data, 'Erro', 6000);
+    }
+  }
 
   return (
     <FormikProvider value={formik}>
@@ -54,7 +87,7 @@ export default function LoginForm() {
             fullWidth
             autoComplete="username"
             type="email"
-            label="Email address"
+            label="Email"
             {...getFieldProps('email')}
             error={Boolean(touched.email && errors.email)}
             helperText={touched.email && errors.email}
@@ -64,7 +97,7 @@ export default function LoginForm() {
             fullWidth
             autoComplete="current-password"
             type={showPassword ? 'text' : 'password'}
-            label="Password"
+            label="Senha"
             {...getFieldProps('password')}
             InputProps={{
               endAdornment: (
@@ -83,11 +116,11 @@ export default function LoginForm() {
         <Stack direction="row" alignItems="center" justifyContent="space-between" sx={{ my: 2 }}>
           <FormControlLabel
             control={<Checkbox {...getFieldProps('remember')} checked={values.remember} />}
-            label="Remember me"
+            label="Lembrar"
           />
 
           <Link component={RouterLink} variant="subtitle2" to="#">
-            Forgot password?
+            Esqueceu a senha?
           </Link>
         </Stack>
 
@@ -98,7 +131,7 @@ export default function LoginForm() {
           variant="contained"
           loading={isSubmitting}
         >
-          Login
+          Entrar
         </LoadingButton>
       </Form>
     </FormikProvider>

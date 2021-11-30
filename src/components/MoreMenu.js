@@ -10,7 +10,7 @@ import { Menu, MenuItem, IconButton, ListItemIcon, ListItemText } from '@materia
 
 // ----------------------------------------------------------------------
 
-export default function MoreMenu({ onDelete, onEdit }) {
+export default function MoreMenu({ onDelete, onEdit, urlEdit }) {
   const ref = useRef(null);
   const [isOpen, setIsOpen] = useState(false);
 
@@ -51,16 +51,27 @@ export default function MoreMenu({ onDelete, onEdit }) {
           />
         </MenuItem>
 
-        <MenuItem component={RouterLink} to="#" sx={{ color: 'text.secondary' }}>
-          <ListItemIcon>
-            <Icon icon={editFill} width={24} height={24} />
-          </ListItemIcon>
-          <ListItemText
-            primary="Editar"
-            primaryTypographyProps={{ variant: 'body2' }}
-            onClick={handleEdit}
-          />
-        </MenuItem>
+        {urlEdit && (
+          <MenuItem component={RouterLink} to={urlEdit} sx={{ color: 'text.secondary' }}>
+            <ListItemIcon>
+              <Icon icon={editFill} width={24} height={24} />
+            </ListItemIcon>
+            <ListItemText primary="Editar" primaryTypographyProps={{ variant: 'body2' }} />
+          </MenuItem>
+        )}
+
+        {onEdit && (
+          <MenuItem sx={{ color: 'text.secondary' }}>
+            <ListItemIcon>
+              <Icon icon={editFill} width={24} height={24} />
+            </ListItemIcon>
+            <ListItemText
+              primary="Editar"
+              onClick={handleEdit}
+              primaryTypographyProps={{ variant: 'body2' }}
+            />
+          </MenuItem>
+        )}
       </Menu>
     </>
   );
@@ -68,5 +79,6 @@ export default function MoreMenu({ onDelete, onEdit }) {
 
 MoreMenu.propTypes = {
   onDelete: propTypes.func.isRequired,
-  onEdit: propTypes.func.isRequired
+  onEdit: propTypes.func,
+  urlEdit: propTypes.string
 };

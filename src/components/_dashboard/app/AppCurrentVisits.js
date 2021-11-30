@@ -4,6 +4,7 @@ import ReactApexChart from 'react-apexcharts';
 import { useTheme, styled } from '@material-ui/core/styles';
 import { Card, CardHeader } from '@material-ui/core';
 // utils
+import propTypes from 'prop-types';
 import { fNumber } from '../../../utils/formatNumber';
 //
 import { BaseOptionChart } from '../../charts';
@@ -31,19 +32,17 @@ const ChartWrapperStyle = styled('div')(({ theme }) => ({
 
 // ----------------------------------------------------------------------
 
-const CHART_DATA = [4344, 5435, 1443, 4443];
-
-export default function AppCurrentVisits() {
+export default function AppCurrentVisits({ chartData }) {
   const theme = useTheme();
 
   const chartOptions = merge(BaseOptionChart(), {
     colors: [
-      theme.palette.primary.main,
-      theme.palette.info.main,
+      theme.palette.error.main,
       theme.palette.warning.main,
-      theme.palette.error.main
+      theme.palette.primary.main,
+      theme.palette.info.main
     ],
-    labels: ['America', 'Asia', 'Europe', 'Africa'],
+    labels: ['Dominância', 'Influência', 'Estabilidade', 'Conformidade'],
     stroke: { colors: [theme.palette.background.paper] },
     legend: { floating: true, horizontalAlign: 'center' },
     dataLabels: { enabled: true, dropShadow: { enabled: false } },
@@ -63,10 +62,14 @@ export default function AppCurrentVisits() {
 
   return (
     <Card>
-      <CardHeader title="Current Visits" />
+      <CardHeader title="% Funcionários por Perfil" />
       <ChartWrapperStyle dir="ltr">
-        <ReactApexChart type="pie" series={CHART_DATA} options={chartOptions} height={280} />
+        <ReactApexChart type="pie" series={chartData} options={chartOptions} height={280} />
       </ChartWrapperStyle>
     </Card>
   );
 }
+
+AppCurrentVisits.propTypes = {
+  chartData: propTypes.array
+};

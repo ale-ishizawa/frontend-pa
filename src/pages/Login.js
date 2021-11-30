@@ -43,16 +43,16 @@ export default function Login() {
   return (
     <RootStyle title="Login | Minimal-UI">
       <AuthLayout>
-        Don’t have an account? &nbsp;
+        Não tem uma conta? &nbsp;
         <Link underline="none" variant="subtitle2" component={RouterLink} to="/register">
-          Get started
+          Crie uma agora
         </Link>
       </AuthLayout>
 
       <MHidden width="mdDown">
         <SectionStyle>
           <Typography variant="h3" sx={{ px: 5, mt: 10, mb: 5 }}>
-            Hi, Welcome Back
+            Olá, Seja bem-vindo
           </Typography>
           <img src="/static/illustrations/illustration_login.png" alt="login" />
         </SectionStyle>
@@ -62,9 +62,9 @@ export default function Login() {
         <ContentStyle>
           <Stack sx={{ mb: 5 }}>
             <Typography variant="h4" gutterBottom>
-              Sign in to Minimal
+              Entrar no DISCovery
             </Typography>
-            <Typography sx={{ color: 'text.secondary' }}>Enter your details below.</Typography>
+            <Typography sx={{ color: 'text.secondary' }}>Insira seus dados.</Typography>
           </Stack>
           <AuthSocial />
 
@@ -72,9 +72,9 @@ export default function Login() {
 
           <MHidden width="smUp">
             <Typography variant="body2" align="center" sx={{ mt: 3 }}>
-              Don’t have an account?&nbsp;
+              Não tem uma conta?&nbsp;
               <Link variant="subtitle2" component={RouterLink} to="register">
-                Get started
+                Crie uma agora
               </Link>
             </Typography>
           </MHidden>

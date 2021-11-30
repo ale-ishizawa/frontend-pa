@@ -5,7 +5,7 @@ import { Stack, Container, Typography, Grid } from '@material-ui/core';
 // Components
 import { NotificationManager } from 'react-notifications';
 
-import api from '../../services/api';
+import { api } from '../../services/api';
 import CategoryForm from './category-form';
 import CategoryList from './category-list';
 

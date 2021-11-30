@@ -61,9 +61,7 @@ export default function AppTasks() {
     initialValues: {
       checked: [TASKS[2]]
     },
-    onSubmit: (values) => {
-      console.log(values);
-    }
+    onSubmit: (values) => {}
   });
 
   const { values, handleSubmit } = formik;

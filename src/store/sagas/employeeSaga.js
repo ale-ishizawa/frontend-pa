@@ -1,6 +1,6 @@
 import { takeLatest, put, call } from '@redux-saga/core/effects';
 import { Types } from '../reducers/employee';
-import api from '../../services/api';
+import { api } from '../../services/api';
 
 function* loadEmployees(action) {
   yield 'teste';
